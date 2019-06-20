@@ -1,7 +1,12 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 app.use(cors())
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
 const apiUrlPrefix = '/api/v1';
 
@@ -80,9 +85,10 @@ app.get(`${apiUrlPrefix}/cars`, (req, res) => {
 });
 
 app.post(`${apiUrlPrefix}/cars`, (req, res) => {
-    return res.status(200).json({
+    return res.status(201).json({
         ok: true,
-        message: 'Everything is ok',
+        message: 'created',
+        data: req.body
     });
 });
 
